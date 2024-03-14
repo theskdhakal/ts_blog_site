@@ -6,7 +6,9 @@ const Header = () => {
   return (
     <div className="flex justify-between ">
       <div className="logo">
-        <img src={logo} alt="not found" width="200px" />
+        <Link to="/">
+          <img src={logo} alt="not found" width="200px" />
+        </Link>
       </div>
       <div className="menus flex  items-center space-x-5 mr-4">
         <Link to="/register">Register</Link>
