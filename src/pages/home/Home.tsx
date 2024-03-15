@@ -1,14 +1,22 @@
-import { Link } from "react-router-dom";
 import MainLayout from "../../components/layout/MainLayout";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { contentData, postContent } from "../../helper/axios";
+import { contentData, postContent, userData } from "../../helper/axios";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { postContentAction } from "./contentAction";
 
-interface Formstate {
-  [key: string]: string;
-}
+const initialFormState: contentData = {
+  title: "",
+  post: "",
+  author: " ",
+};
 
 export const Home: React.FC = () => {
-  const [form, setForm] = useState<Formstate>({});
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.userInfo);
+
+  const { fName, lName } = (user as userData) || {};
+
+  const [form, setForm] = useState<contentData>(initialFormState);
 
   const handleOnChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -21,13 +29,13 @@ export const Home: React.FC = () => {
   const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData: contentData = {
-      title: form.title || "",
-      post: form.post || "",
-      author: "shiva",
+    const formData = {
+      title: form.title,
+      post: form.post,
+      author: `${fName} ${lName}`,
     };
 
-    postContent(formData);
+    dispatch(postContentAction(formData));
   };
 
   return (

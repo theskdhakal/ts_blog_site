@@ -61,11 +61,12 @@ export const postContent = async (formData: contentData) => {
   try {
     const resp = await axios.post(contentAPI, formData);
 
-    console.log(resp.data);
+    return resp.data;
   } catch (error: any) {
-    return {
+    const errorResponse: ErrorResponse = {
       status: "error",
-      message: error.message,
+      message: error.message || "An error Occured",
     };
+    return errorResponse;
   }
 };

@@ -1,16 +1,23 @@
 import { loginInput } from "../../components/input/inputFields";
 import CustomInput from "../../components/input/CustomInput";
 import { useState } from "react";
-import { loginUser, userData } from "../../helper/axios";
 import MainLayout from "../../components/layout/MainLayout";
-import { toast } from "react-toastify";
+import { loginUserAction } from "./userAction";
+import { useAppDispatch } from "../../hooks";
 
-interface FormState {
-  [key: string]: string;
+export interface FormState {
+  email: string;
+  password: string;
 }
 
+const initialFormState: FormState = {
+  email: "",
+  password: "",
+};
+
 const Login: React.FC = () => {
-  const [form, setForm] = useState<FormState>({});
+  const dispatch = useAppDispatch();
+  const [form, setForm] = useState<FormState>(initialFormState);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -21,13 +28,7 @@ const Login: React.FC = () => {
   const handleOnLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData: userData = {
-      email: form.email || "",
-      password: form.password || "",
-    };
-    const { status, message } = await loginUser(formData);
-
-    (toast as any)[status](message);
+    dispatch(loginUserAction(form));
   };
 
   return (
