@@ -70,3 +70,17 @@ export const postContent = async (formData: contentData) => {
     return errorResponse;
   }
 };
+
+export const getAllContent = async () => {
+  try {
+    const resp = await axios.get(contentAPI);
+
+    return resp.data;
+  } catch (error: any) {
+    const errorResponse: ErrorResponse = {
+      status: "error",
+      message: error.message || "An error occured",
+    };
+    return errorResponse;
+  }
+};
