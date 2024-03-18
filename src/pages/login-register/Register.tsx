@@ -6,6 +6,8 @@ import MainLayout from "../../components/layout/MainLayout";
 import { postUser, userData } from "../../helper/axios";
 import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
+import { setUser } from "./userSlice";
+import { useAppDispatch } from "../../hooks";
 
 interface FormState {
   [key: string]: string;
@@ -13,6 +15,7 @@ interface FormState {
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [form, setForm] = useState<FormState>({});
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,11 +36,12 @@ const Register: React.FC = () => {
       password: rest.password || "",
     };
 
-    const { status, message } = await postUser(formData);
+    const { status, message, user } = await postUser(formData);
     (toast as any)[status](message);
 
     if (status === "success") {
       navigate("/");
+      dispatch(setUser(user));
     }
   };
   return (

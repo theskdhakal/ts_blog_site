@@ -13,7 +13,7 @@ const Header = () => {
   const { _id, fName } = (user as pulledUser) || {};
 
   return (
-    <div className="flex justify-between ">
+    <div className="flex justify-between bg-sky-100">
       <div className="logo">
         <Link to="/">
           <img src={logo} alt="not found" width="200px" />

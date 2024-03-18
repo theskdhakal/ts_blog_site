@@ -15,3 +15,8 @@
     @apply text-lg;
   }
 }
+
+.main {
+  min-height: 80vh;
+  height: auto;
+}

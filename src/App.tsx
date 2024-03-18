@@ -8,11 +8,10 @@ import { useEffect } from "react";
 import { pulledUser } from "./components/layout/Header";
 
 function App() {
+  const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.userInfo);
 
   const { _id } = user as pulledUser;
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (_id) {

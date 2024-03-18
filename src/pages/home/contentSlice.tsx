@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { updatedContentData } from "./Home";
 
-const initialState = {
+interface ContentState {
+  contents: updatedContentData[];
+}
+
+const initialState: ContentState = {
   contents: [],
 };
 

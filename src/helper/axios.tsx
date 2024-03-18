@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useAppSelector } from "../hooks";
 
 const rootAPI: string = "http://localhost:8000";
 
@@ -17,6 +18,7 @@ export interface contentData {
   title: string;
   post: string;
   author: string;
+  authorId: string;
 }
 
 interface ErrorResponse {
@@ -75,6 +77,23 @@ export const getAllContent = async () => {
   try {
     const resp = await axios.get(contentAPI);
 
+    return resp.data;
+  } catch (error: any) {
+    const errorResponse: ErrorResponse = {
+      status: "error",
+      message: error.message || "An error occured",
+    };
+    return errorResponse;
+  }
+};
+
+export const deleteContent = async (contentId: string, userId: string) => {
+  try {
+    const resp = await axios.delete(contentAPI + "/" + contentId, {
+      headers: {
+        Authorization: userId,
+      },
+    });
     return resp.data;
   } catch (error: any) {
     const errorResponse: ErrorResponse = {
