@@ -109,14 +109,14 @@ export const Home: React.FC = () => {
         <hr className="my-4 border-black" />
         <div className="contents">
           <h1 className="text-center font-bold">Read All Blogs</h1>
-          {!contents[0] && (
+          {!contents && (
             <div style={{ height: "70vh" }}>
               <h1 className="pt-5 text-red-600 text-center">
                 No blogs found!!
               </h1>
             </div>
           )}
-          {contents.map((content) => (
+          {contents?.map((content) => (
             <div
               key={content._id}
               className="border shadow-lg rounded p-4 my-4 relative"

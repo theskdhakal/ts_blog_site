@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useAppSelector } from "../hooks";
 
-const rootAPI: string = "http://localhost:8000";
+const rootAPI: string = "https://ts-blog-backend.onrender.com";
 
 const userAPI: string = rootAPI + "/api/v1/user";
 
